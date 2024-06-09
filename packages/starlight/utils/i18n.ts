@@ -150,8 +150,8 @@ function getLocaleInfo(lang: string) {
 		if (!label || lang === label) throw new Error('Label not found.');
 		return {
 			label: label[0]?.toLocaleUpperCase(locale) + label.slice(1),
-			// @ts-expect-error - `textInfo` is not part of the `Intl.Locale` type but is available in Node.js 18.0.0+.
-			dir: locale.textInfo.direction as 'ltr' | 'rtl',
+			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale/getTextInfo
+			dir: locale.getTextInfo().direction as 'ltr' | 'rtl',
 		};
 	} catch (error) {
 		throw new AstroError(
